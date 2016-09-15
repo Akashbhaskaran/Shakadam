@@ -8,7 +8,7 @@ How it works-
 The application has a database of all the cars and their information. The UI, through which the user communicates, 
 collects the key instructions to find/select cars suitable for the user. Filtering is available, to choose a certain group, within a wide range of cars.
 
-Application is currently available as website, www.shakadam.esy.es/car and an Android application.
+Application is currently available as website, www.shakadam.esy.es/web/sv and an Android application.
 
 Features-
 1. User can either search for a specific car, and know its full features and specifications
