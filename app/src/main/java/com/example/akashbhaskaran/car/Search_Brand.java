@@ -31,6 +31,10 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.crystal.crystalrangeseekbar.interfaces.OnRangeSeekbarChangeListener;
+import com.crystal.crystalrangeseekbar.interfaces.OnRangeSeekbarFinalValueListener;
+import com.crystal.crystalrangeseekbar.widgets.CrystalRangeSeekbar;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -68,7 +72,7 @@ public class Search_Brand extends AppCompatActivity
 
     // Url to get all categories
     private String URL_CATEGORIES = "http://www.shakadam.esy.es/car/car_search_brand.php";
-
+    CrystalRangeSeekbar rangeSeekbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,10 +82,27 @@ public class Search_Brand extends AppCompatActivity
         setSupportActionBar(toolbar);
         p1 = (EditText)findViewById(R.id.p1);
         p2 = (EditText)findViewById(R.id.p2);
+        rangeSeekbar = (CrystalRangeSeekbar)findViewById(R.id.rangeSeekbar2);
+        p2.setKeyListener(null);
+        p1.setKeyListener(null);
         spinnerFood = (Spinner) findViewById(R.id.spinFood);
         final String[] from = new String[] {"Model"};
         final int[] to = new int[] {android.R.id.text1};
+        rangeSeekbar.setOnRangeSeekbarChangeListener(new OnRangeSeekbarChangeListener() {
+            @Override
+            public void valueChanged(Number minValue, Number maxValue) {
+                p1.setText(String.valueOf(minValue));
+                p2.setText(String.valueOf(maxValue));
+            }
+        });
 
+// set final value listener
+        rangeSeekbar.setOnRangeSeekbarFinalValueListener(new OnRangeSeekbarFinalValueListener() {
+            @Override
+            public void finalValue(Number minValue, Number maxValue) {
+                Log.d("CRS=>", String.valueOf(minValue) + " : " + String.valueOf(maxValue));
+            }
+        });
         // setup SimpleCursorAdapter
         myAdapter = new SimpleCursorAdapter(Search_Brand.this, android.R.layout.simple_spinner_dropdown_item, null, from, to, CursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
 

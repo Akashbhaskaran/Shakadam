@@ -33,9 +33,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Jokes" />
-        <activity android:name=".Search_result" />
-        <activity android:name=".Car_Specific" />
+        <activity android:name=".Jokes"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".Search_result"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".Car_Specific"
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:name=".Video_view">        </activity>
         <activity android:name=".Search_Brand"
             android:theme="@style/AppTheme.NoActionBar">
@@ -54,7 +57,8 @@
             android:name="android.app.searchable"
             android:resource="@xml/searchable" />
         </activity>
-        <activity android:name=".Car_List_Brand_price">
+        <activity android:name=".Car_List_Brand_price"
+            android:theme="@style/AppTheme.NoActionBar">
         </activity>
     </application>
 

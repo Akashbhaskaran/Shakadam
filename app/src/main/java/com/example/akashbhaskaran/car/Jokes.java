@@ -7,6 +7,8 @@ import android.support.v4.media.MediaMetadataCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
+import android.view.View;
 import android.widget.Toast;
 
 import org.json.JSONArray;
@@ -33,6 +35,20 @@ public class Jokes extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_jokes);
+
+        Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        if (mToolbar != null) {
+            mToolbar.setNavigationIcon(getResources().getDrawable(R.drawable.ic_arrow_back_white_24dp));
+            setSupportActionBar(mToolbar);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    finish();
+                }
+            });
+        }
+
         rv=(RecyclerView)findViewById(R.id.rv);
 
         LinearLayoutManager llm = new LinearLayoutManager(this);
@@ -64,6 +80,8 @@ String url;
             jsonObject = new JSONObject(JSON_STRING);
             JSONArray result = jsonObject.getJSONArray("result");
 
+            if(result.length()==0)
+                Toast.makeText(Jokes.this,"Sorry , Cant find any",Toast.LENGTH_LONG).show();
             for(int i = 0; i<result.length(); i++){
                 JSONObject jo = result.getJSONObject(i);
 

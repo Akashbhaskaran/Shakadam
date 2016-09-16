@@ -30,4 +30,7 @@ dependencies {
     compile 'com.android.support:recyclerview-v7:23.1.0'
     compile files('libs/urlimageviewhelper-1.0.4.jar')
 
+        compile 'com.crystal:crystalrangeseekbar:1.1.1'
+
+
 }

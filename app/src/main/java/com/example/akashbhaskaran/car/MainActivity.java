@@ -14,6 +14,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.widget.CursorAdapter;
 import android.support.v4.widget.SimpleCursorAdapter;
 import android.support.v7.widget.SearchView;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -28,6 +29,10 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
+
+import com.crystal.crystalrangeseekbar.interfaces.OnRangeSeekbarChangeListener;
+import com.crystal.crystalrangeseekbar.interfaces.OnRangeSeekbarFinalValueListener;
+import com.crystal.crystalrangeseekbar.widgets.CrystalRangeSeekbar;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -53,16 +58,36 @@ public class MainActivity extends AppCompatActivity
 
     SearchView searchView = null;
     private String[] strArrData = {"No Suggestions"};
+     CrystalRangeSeekbar rangeSeekbar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+       rangeSeekbar = (CrystalRangeSeekbar)findViewById(R.id.rangeSeekbar1);
+
         PrefManager prefManager = new PrefManager(getApplicationContext());
         prefManager.setFirstTimeLaunch(false);
+        p1 = (EditText)findViewById(R.id.p1);
+        p2 = (EditText)findViewById(R.id.p2);
+       p2.setKeyListener(null);
+        p1.setKeyListener(null);
+        rangeSeekbar.setOnRangeSeekbarChangeListener(new OnRangeSeekbarChangeListener() {
+            @Override
+            public void valueChanged(Number minValue, Number maxValue) {
+                p1.setText(String.valueOf(minValue));
+                p2.setText(String.valueOf(maxValue));
+            }
+        });
 
-
+// set final value listener
+        rangeSeekbar.setOnRangeSeekbarFinalValueListener(new OnRangeSeekbarFinalValueListener() {
+            @Override
+            public void finalValue(Number minValue, Number maxValue) {
+                Log.d("CRS=>", String.valueOf(minValue) + " : " + String.valueOf(maxValue));
+            }
+        });
         final String[] from = new String[] {"Model"};
         final int[] to = new int[] {android.R.id.text1};
 
@@ -72,8 +97,7 @@ public class MainActivity extends AppCompatActivity
         // Fetch data from mysql table using AsyncTask
         new AsyncFetch().execute();
 
-        p1 = (EditText)findViewById(R.id.p1);
-        p2 = (EditText)findViewById(R.id.p2);
+
         final Spinner spinner = (Spinner) findViewById(R.id.spinner);
 
         // Spinner click listener
@@ -153,6 +177,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
+
         getMenuInflater().inflate(R.menu.main, menu);
         MenuItem searchItem = menu.findItem(R.id.action_search);
         SearchManager searchManager = (SearchManager) MainActivity.this.getSystemService(Context.SEARCH_SERVICE);
@@ -187,9 +212,7 @@ public class MainActivity extends AppCompatActivity
                 public boolean onQueryTextSubmit(String s) {
                     //Toast.makeText(getApplicationContext(),s,Toast.LENGTH_LONG).show();
                     Intent i = new Intent(getApplicationContext(),Search_result.class);
-
                     i.putExtra("model",s);
-
                     startActivity(i);
                     return true;
                 }
@@ -211,9 +234,6 @@ public class MainActivity extends AppCompatActivity
 
         return true;
     }
-
-
-
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

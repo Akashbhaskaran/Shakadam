@@ -109,7 +109,7 @@ public class Compare extends AppCompatActivity
         }
         if (searchView != null) {
             searchView.setSearchableInfo(searchManager.getSearchableInfo(Compare.this.getComponentName()));
-            searchView.setIconified(true);
+            searchView.setIconified(false);
             searchView.setQueryHint("Search By model");
             searchView.setSuggestionsAdapter(myAdapter);
             // Getting selected (clicked) item suggestion

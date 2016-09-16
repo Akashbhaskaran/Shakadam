@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -35,6 +36,20 @@ public class Car_Specific extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_car__specific);
+
+
+        Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        if (mToolbar != null) {
+            mToolbar.setNavigationIcon(getResources().getDrawable(R.drawable.ic_arrow_back_white_24dp));
+            setSupportActionBar(mToolbar);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                  finish();
+                }
+            });
+        }
 
         video = (Button)findViewById(R.id.btn_video);
         video.setOnClickListener(this);
@@ -302,17 +317,34 @@ public class Car_Specific extends AppCompatActivity implements View.OnClickListe
         else {
                 if (Constants.list.size() <= 2) {
 
-                    Constants.list.add(model);
-                    Constants.list.add(variant);
-                    Toast.makeText(Car_Specific.this, "Added", Toast.LENGTH_LONG).show();
-                    if(Constants.list.size()==4)
+                     if(Constants.list.size()==0)
                     {
-                        // Toast.makeText(Car_Specific.this,"List has been reset , only 2 cars can be added",Toast.LENGTH_LONG).show();
-                        //Constants.list.clear();
-                        Intent i = new Intent(Car_Specific.this,Compare_new.class);
-                        startActivity(i);
+                        Constants.list.add(model);
+                        Constants.list.add(variant);
+                        Toast.makeText(Car_Specific.this, "Added", Toast.LENGTH_LONG).show();
                     }
-                } else if(Constants.list.size()>4) {
+
+                    else  {
+                        if ((String.valueOf(Constants.list.get(Constants.list.size() - 2)).equals(model)) && (String.valueOf(Constants.list.get(Constants.list.size()-1)).equals(variant))) {
+
+                            Toast.makeText(Car_Specific.this, "Already Exists in list", Toast.LENGTH_LONG).show();
+                        }
+
+
+                        else{ Constants.list.add(model);
+                            Constants.list.add(variant);
+                            Toast.makeText(Car_Specific.this, "Added", Toast.LENGTH_LONG).show();
+                            if (Constants.list.size() == 4) {
+                                // Toast.makeText(Car_Specific.this,"List has been reset , only 2 cars can be added",Toast.LENGTH_LONG).show();
+                                //Constants.list.clear();
+                                Intent i = new Intent(Car_Specific.this, Compare_new.class);
+                                startActivity(i);
+                            }
+                        }
+
+                    }
+                    }
+                else  {
                     Toast.makeText(Car_Specific.this, "List has been reset , only 2 cars can be added", Toast.LENGTH_LONG).show();
                     Constants.list.clear();
 

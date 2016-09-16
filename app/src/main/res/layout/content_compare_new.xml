@@ -36,6 +36,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text=""
+        android:textAlignment="textStart"
+        android:textSize="20sp"
         android:id="@+id/textView4"
         android:layout_below="@+id/iv_car1"
          />
@@ -48,6 +50,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text=""
+        android:textAlignment="textStart"
+        android:textSize="20sp"
         android:id="@+id/textView5"
         android:layout_below="@+id/iv_car2"
         />

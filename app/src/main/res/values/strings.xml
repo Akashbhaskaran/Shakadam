@@ -16,6 +16,7 @@
     <string name="slide_2_title">Apply Filters</string>
     <string name="slide_2_desc">Compare and apply filters and choose the best one</string>
 
+    <string name="toolbar">toolbar</string>
 
     <string name="play_again_desc">To see the welcome slider again, goto Settings -> apps -> welcome slider -> clear data</string>
     <string name="play_again">Play Again</string>
