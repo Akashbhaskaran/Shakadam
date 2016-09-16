@@ -9,12 +9,14 @@
     android:clickable="true"
     android:foreground="?android:attr/selectableItemBackground"
     android:id="@+id/cv"
+
     >
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:padding="16dp"
         android:id="@+id/rl1"
+
         >
         <ImageView
             android:layout_width="match_parent"
